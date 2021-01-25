@@ -47,3 +47,18 @@ actions:
 ``` bash
 sudo make install
 ```
+
+### Compatibity
+
+Cronplan has been tested on Linux using:
+* cronie 1.5.5
+* crond from busybox v1.33.0
+
+### Unit tests
+
+``` bash
+$ ./test_cronplan.sh 
+test_cronplan_1_addsnoozedel OK
+test_cronplan_2_autosnooze OK
+all tests OK
+```
