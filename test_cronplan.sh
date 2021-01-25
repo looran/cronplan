@@ -27,13 +27,13 @@ test_cronplan_1_addsnoozedel() {
 	# get task time
 	time=$($CRONPLAN time testtask)
 	[ $? -ne 0 ] && return 30
-	[ "$time" != "01:00" ] && return 31
+	[ "$time" != "1:0" ] && return 31
 
 	# check cron time
 	minute=$(crontab -l |grep "$CRONPLAN exec testtask" |cut -d' ' -f1)
-	[ "$minute" != "00" ] && return 40
+	[ "$minute" != "0" ] && return 40
 	hour=$(crontab -l |grep "$CRONPLAN exec testtask" |cut -d' ' -f2)
-	[ "$hour" != "01" ] && return 41
+	[ "$hour" != "1" ] && return 41
 
 	# snooze task
 	$CRONPLAN snooze testtask 10 >/dev/null
@@ -43,7 +43,7 @@ test_cronplan_1_addsnoozedel() {
 	minute=$(crontab -l |grep "$CRONPLAN exec testtask" |cut -d' ' -f1)
 	[ "$minute" != "10" ] && return 60
 	hour=$(crontab -l |grep "$CRONPLAN exec testtask" |cut -d' ' -f2)
-	[ "$hour" != "01" ] && return 61
+	[ "$hour" != "1" ] && return 61
 
 	# snooze task bis
 	$CRONPLAN snooze testtask 60 >/dev/null
@@ -53,7 +53,7 @@ test_cronplan_1_addsnoozedel() {
 	minute=$(crontab -l |grep "$CRONPLAN exec testtask" |cut -d' ' -f1)
 	[ "$minute" != "10" ] && return 80
 	hour=$(crontab -l |grep "$CRONPLAN exec testtask" |cut -d' ' -f2)
-	[ "$hour" != "02" ] && return 81
+	[ "$hour" != "2" ] && return 81
 
 	# simulate task execution
 	exec_cmd="$(crontab -l |grep "$CRONPLAN exec testtask" |cut -d' ' -f6-)"
@@ -92,7 +92,7 @@ test_cronplan_2_autosnooze() {
 	minute=$(crontab -l |grep "$CRONPLAN exec testtask" |cut -d' ' -f1)
 	[ "$minute" != "10" ] && return 30
 	hour=$(crontab -l |grep "$CRONPLAN exec testtask" |cut -d' ' -f2)
-	[ "$hour" != "01" ] && return 31
+	[ "$hour" != "1" ] && return 31
 
 	# simulate task execution
 	$CRONPLAN exec testtask 01:00 -s 10 $action

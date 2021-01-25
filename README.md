@@ -19,7 +19,7 @@ task 'reveil' delayed of 10 minutes: new time 6:17
 **List tasks**
 ``` bash
 $ cronplan list
-17 06 * * * /usr/local/bin/cronplan exec reveil no 0 'mpv /tmp/dringdring.wav'
+17 6 * * * /usr/local/bin/cronplan exec reveil no 0 'mpv /tmp/dringdring.wav'
 ```
 
 **Delete a task**
