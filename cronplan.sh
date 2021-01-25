@@ -35,13 +35,13 @@ task_add() {
 }
 
 task_present() {
-	crontab -l |grep -q "$PROGNAME exec $taskname" || return 1
+	crontab -l |grep -q "$PROGNAME exec $taskname " || return 1
 	return 0
 }
 
 task_read_cron() {
 	task_present $taskname || (echo "error: cannot read task, task '$taskname' is not in crontab"; exit 1)
-	task="$(crontab -l |grep "$PROGNAME exec $taskname")"
+	task="$(crontab -l |grep "$PROGNAME exec $taskname ")"
 	minute=$(echo "$task" |cut -d' ' -f1)
 	hour=$(echo "$task" |cut -d' ' -f2)
 	time="$hour:$minute"
@@ -69,7 +69,7 @@ task_read_args() {
 task_del() {
 	task_present $taskname || (echo "error: cannot delete task, task '$taskname' is not in crontab"; exit 1)
 	tmp="$(mktemp $TMP/cronplan.XXXXXX)"
-	crontab -l |grep -v "$PROGNAME exec $taskname" > $tmp ||true
+	crontab -l |grep -v "$PROGNAME exec $taskname " > $tmp ||true
 	crontab $tmp
 	rm $tmp
 }
