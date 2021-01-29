@@ -77,7 +77,7 @@ test_cronplan_2_autosnooze() {
 	trap _test_cronplan_unwind EXIT
 
 	# add task
-	$CRONPLAN add testtask 01:00 -s 10 "$action" >/dev/null
+	$CRONPLAN add testtask 08:00 -s 10 "$action" >/dev/null
 	[ $? -ne 0 ] && return 10
 
 	# simulate task execution
@@ -92,7 +92,7 @@ test_cronplan_2_autosnooze() {
 	minute=$(crontab -l |grep "$CRONPLAN exec testtask" |cut -d' ' -f1)
 	[ "$minute" != "10" ] && return 30
 	hour=$(crontab -l |grep "$CRONPLAN exec testtask" |cut -d' ' -f2)
-	[ "$hour" != "1" ] && return 31
+	[ "$hour" != "8" ] && return 31
 
 	# simulate task execution
 	$CRONPLAN exec testtask 01:00 -s 10 $action

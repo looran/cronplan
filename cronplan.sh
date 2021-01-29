@@ -26,8 +26,8 @@ task_add() {
 	tmp="$(mktemp $TMP/cronplan.XXXXXX)"
 	IFS=: read hour minutes <<< $time
 	[ -z "$hour" -o -z "$minutes" ] && echo "error: cannot add task, invalid time format: $time" && exit 1
-	hour="$(printf "%d" $hour)"
-	minutes="$(printf "%d" $minutes)"
+	hour="$(echo $hour |awk '{printf "%d\n",$0;}')"
+	minutes="$(echo $minutes |awk '{printf "%d\n",$0;}')"
 	crontab -l > $tmp ||true
 	echo "$minutes $hour * * * $PROGPATH exec $taskname $repeat $autosnooze '$cmd'" >> $tmp
 	crontab $tmp
